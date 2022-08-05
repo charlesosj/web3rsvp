@@ -171,7 +171,7 @@ contract Web3RSVP {
             block.timestamp >= (myEvent.eventTimestamp + 7 days),
             "TOO EARLY"
         );
-
+        
         // only the event owner can withdraw
         require(msg.sender == myEvent.eventOwner, "MUST BE EVENT OWNER");
 
