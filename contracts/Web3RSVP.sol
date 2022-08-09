@@ -32,7 +32,7 @@ contract Web3RSVP {
     }
 
     mapping(bytes32 => CreateEvent) public idToEvent;
-
+    bytes32[] public eventIDs;
     function createNewEvent(
         uint256 eventTimestamp,
         uint256 deposit,
@@ -66,7 +66,7 @@ contract Web3RSVP {
             claimedRSVPs,
             false
         );
-
+        eventIDs.push(eventId);
         emit NewEventCreated(
             eventId,
             msg.sender,
@@ -195,4 +195,15 @@ contract Web3RSVP {
 
         emit DepositsPaidOut(eventId);
     }
+    function getAllEvents() public view returns (  CreateEvent[] memory)   {
+        uint i = 0;
+        CreateEvent[] memory events = new CreateEvent[](eventIDs.length);
+        while (  i < eventIDs.length ) {
+            events[i] = idToEvent[eventIDs[i]];
+            i++;
+        }
+        return events;
+    }
+
+
 }
